@@ -28,8 +28,7 @@ def main():
          server_handler = threading.Thread(target=listen, args=(my_target, my_target_port))
          server_handler.start()
 
-     except Exception as ex:
-        print(f"\nUsage: python {sys.argv[0]} [Machine's IP] [Port to Listen on]\n{ex}") 
+     except Exception as ex: print(f"\nUsage: python {sys.argv[0]} [Machine's IP] [Port to Listen on]\n{ex}") 
 
 if __name__== "__main__": main()
 
