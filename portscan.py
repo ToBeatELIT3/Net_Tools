@@ -51,17 +51,14 @@ def main():
             elif my_target_port == "--common_udp":
                 for x in range(len(common_udp_ports)): scan(my_target, common_udp_ports[x])
             
-                elif my_target_port == "--common_tcp":
-                    for x in range(len(common_tcp_ports)): scan(my_target, common_tcp_ports[x])
+            elif my_target_port == "--common_tcp":
+                for x in range(len(common_tcp_ports)): scan(my_target, common_tcp_ports[x])
 
             else: scan(my_target, my_target_port)
 
         else:
             if my_target_port == "--all":
                 for x in range(65535): threaded_scan(my_target, x, my_time_limit)
-
-            elif my_target_port == "--common":
-                for x in range(len(common_port_list)): threaded_scan(my_target, common_port_list[x], my_time_limit)
 
             else: threaded_scan(my_target, my_target_port, my_time_limit)
 
@@ -72,9 +69,7 @@ def main():
         for x in range(len(open_ports)): print(f"Port # {open_ports[x]} is OPEN")
         print(f"Total Time : {starting_time - ending_time} Seconds")
     
-    except Exception as e:
-        print(f"\nUsage: python {sys.argv[0]} [target_ip] [--all] or [--common] or [target_port] [allocated_seconds_per_scan] or [--fast](experimental)]\n")
-        print(e)
+    except Exception as e: print(f"\nUsage: python {sys.argv[0]} [target_ip] [--all] or [--common] or [target_port] [allocated_seconds_per_scan] or [--fast](experimental)]\n{e}")
     
 
 if __name__ == "__main__": main()
