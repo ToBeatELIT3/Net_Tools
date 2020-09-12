@@ -5,9 +5,12 @@ import sys
 def connect(target_ip, target_port, data_to_send):
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     tcp_server.sendto(bytes(data_to_send, "utf-8"))
-    recived_data = tcp_server.recvfrom(4096)
+    
+    try:
+        recived_data = tcp_server.recvfrom(4096)
+        print(recived_data.decode("utf-8"))
 
-    print(recived_data.decode("utf-8"))
+    except: print("No Data Recieved")
 
 def main():
     try:
