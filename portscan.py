@@ -1,6 +1,6 @@
 #ToBeatElite
 from socket import socket, gethostbyname, AF_INET, SOCK_STREAM
-from common_ports import common_port_list
+from common_ports import common_tcp_ports, common_udp_ports
 import multiprocessing
 import time
 import sys
@@ -36,7 +36,7 @@ def main():
 
         my_target = gethostbyname(sys.argv[1])
 
-        if sys.argv[2] not in ["--all", "--common"]: my_target_port = int(sys.argv[2])
+        if sys.argv[2] not in ["--all", "--common_udp", "--common_tcp"]: my_target_port = int(sys.argv[2])
         else: my_target_port = sys.argv[2]
 
         if sys.argv[3] != "--fast": my_time_limit = round(float(sys.argv[3]))
@@ -48,8 +48,11 @@ def main():
             if my_target_port == "--all":
                 for x in range(65535): scan(my_target, x)
 
-            elif my_target_port == "--common":
-                for x in range(len(common_port_list)): scan(my_target, common_port_list[x])
+            elif my_target_port == "--common_udp":
+                for x in range(len(common_udp_ports)): scan(my_target, common_udp_ports[x])
+            
+                elif my_target_port == "--common_tcp":
+                    for x in range(len(common_tcp_ports)): scan(my_target, common_tcp_ports[x])
 
             else: scan(my_target, my_target_port)
 
