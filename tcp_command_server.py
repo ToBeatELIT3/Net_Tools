@@ -4,7 +4,7 @@ import subprocess
 import socket
 import sys
 
-def connect_to_socket(target_ip, target_port):
+def listen_on_socket(target_ip, target_port):
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tcp_server.bind((target_ip, target_port))
     tcp_server.listen(5)
@@ -25,7 +25,7 @@ def main():
         my_target = sys.argv[1]
         my_target_port = int(sys.argv[2])
         
-        server_handler = Thread(target=connect_to_socket, args=(my_target, my_target_port))
+        server_handler = Thread(target=listen_on_socket, args=(my_target, my_target_port))
         server_handler.start()
 
     except Exception as ex: print(f"\nUsage: python {sys.argv[0]} [Machine's IP] [Port to Listen on]\n{ex}") 
