@@ -19,10 +19,9 @@ def main():
     try:
         my_target = sys.argv[1]
         my_target_port = int(sys.argv[2])
-        my_data = str(sys.argv[3])
         connect_on_socket(my_target, my_target_port)
 
-    except Exception as ex: print(f"Usage: python {sys.argv[0]} [Target to Connect to] [Port to Connect to] [Data to Send]\n{ex}")
+    except Exception as ex: print(f"Usage: python {sys.argv[0]} [Target to Connect to] [Port to Connect to]\n{ex}")
 
 if __name__ == "__main__": main()
 
