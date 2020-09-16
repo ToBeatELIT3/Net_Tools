@@ -1,5 +1,8 @@
-import socket, subprocess, sys
+#ToBeatElite
 from threading import Thread
+import subprocess
+import socket
+import sys
 
 def connect_to_socket(target_ip, target_port):
     tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
