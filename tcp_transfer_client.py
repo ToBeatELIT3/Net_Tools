@@ -17,10 +17,11 @@ def connect(target_ip, target_port, file_to_send):
         for x in progress_bar:
             bytes_read = my_file.read(4096)
             if not bytes_read: break
-            tcp_server.sendall(bytes_read)
+            tcp_server.send(bytes_read)
             progress_bar.update(len(bytes_read))
 
     tcp_server.close()
+    main()
     
 def main():
     try:
@@ -31,7 +32,7 @@ def main():
         connect(my_target, my_target_port, my_file_to_send)
 
 
-    except Exception as ex: print(f"Usage: python {sys.argv[0]} [Target to Connect to] [Port to Connect to]\n{ex}")
+    except Exception as ex: print(f"Usage: python {sys.argv[0]} [Target to Connect to] [Port to Connect to] [Path To File To Send]\n{ex}")
 
 if __name__ == "__main__": main()
 
