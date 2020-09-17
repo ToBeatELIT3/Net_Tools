@@ -12,8 +12,11 @@ def connect_on_socket(target_ip, target_port):
     while True:
         my_command = input("<NET>")
         tcp_server.send(bytes(my_command, "utf-8"))
+        if my_command == "CLOSE": break
         recived_data = tcp_server.recv(4096)
         print(recived_data.decode("utf-8"))
+
+    tcp_server.close()
 
 def main():
     try:

