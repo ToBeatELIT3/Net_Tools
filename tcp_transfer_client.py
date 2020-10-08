@@ -21,7 +21,6 @@ def connect(target_ip, target_port, file_to_send):
             progress_bar.update(len(bytes_read))
 
     tcp_server.close()
-    main()
     
 def main():
     try:
